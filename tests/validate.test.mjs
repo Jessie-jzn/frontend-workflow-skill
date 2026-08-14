@@ -25,16 +25,28 @@ test('rejects a package without the complete workflow references', () => {
   assert.match(result.stderr, /references\/code-review\.md/);
 });
 
-test('rejects a package without the Chinese skill guide', () => {
+test('rejects a package without the English README guide', () => {
   const fixture = makeTempDir('frontend-workflow-language-');
   const copy = join(fixture, 'frontend-workflow');
   cpSync(skillRoot, copy, { recursive: true });
-  rmSync(join(copy, 'SKILL.zh-CN.md'), { force: true });
+  rmSync(join(copy, 'README.md'), { force: true });
 
   const result = runNode(join(copy, 'scripts', 'validate.mjs'), ['--skill', copy]);
 
   assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /SKILL\.zh-CN\.md/);
+  assert.match(result.stderr, /README\.md/);
+});
+
+test('rejects a package without the Chinese README guide', () => {
+  const fixture = makeTempDir('frontend-workflow-language-');
+  const copy = join(fixture, 'frontend-workflow');
+  cpSync(skillRoot, copy, { recursive: true });
+  rmSync(join(copy, 'README.zh-CN.md'), { force: true });
+
+  const result = runNode(join(copy, 'scripts', 'validate.mjs'), ['--skill', copy]);
+
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /README\.zh-CN\.md/);
 });
 
 test('rejects macOS metadata from the public package', () => {

@@ -8,7 +8,8 @@ import { fail, parseArgs } from './profile-lib.mjs';
 
 const REQUIRED_FILES = [
   'SKILL.md',
-  'SKILL.zh-CN.md',
+  'README.md',
+  'README.zh-CN.md',
   'LICENSE',
   'agents/openai.yaml',
   'references/feature-development.md',
